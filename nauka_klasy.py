@@ -25,6 +25,17 @@ class Zwierzak:
             return 100
         return dane
 
+    def uplywCzasu(self):
+        self.glod += 20
+        self.humor -= 10
+        self.higiena -= 40
+        self.energia -= 30
+
+        self.glod = self.__kalibrujZakres(self.glod)
+        self.humor = self.__kalibrujZakres(self.humor)
+        self.higiena = self.__kalibrujZakres(self.higiena)
+        self.energia = self.__kalibrujZakres(self.energia)
+
     def jedzenie(self, ile):
         self.glod -= ile*10
         self.humor += ile*5
@@ -90,23 +101,46 @@ while True:
     print("---menu---")
     print("1. Stwórz zwierzaka")
     print("2. Pokaż wszystkie zwierzaki")
-    print("3. Wyjście z programu")
+    print("3. Opieka nad zwierzakiem")
+    print("4. Upływ czasu - kolejna tura")
+    print("5. Wyjście z programu")
 
     wybor = input("Twój wybór: ")
     if wybor == "1":
         print("Wybrałeś 1")
+        # rasa = input("Podaj rasę: ")
+        imie = input("Podaj imię: ")
+        zwierzaki.append(Zwierzak(imie))
     elif wybor == "2":
         print("Wybrałeś 2")
+        for i, v in enumerate(zwierzaki):
+            print("Pod indeksem: " , i , " jest zwierzak o imieniu: ", v.imie)
     elif wybor == "3":
         print("Wybrałeś 3")
-        break wybor == "2":
+        nr = input("Podaj nr zwierzaka:")
+        wybrany = zwierzaki[int(nr)]
+        print(f"Wybrałeś zwierzaka o imieniu {wybrany.imie}. Co robimy?")
+        print("a - karm, b - myj, c- baw, d - usypianie")
+        decyzja = input("Twoja decyzja: ")
+        if decyzja == "a":
+            print("Zdecydowałeś o a")
+            wybrany.jedzenie(3)
+        elif decyzja == "b":
+            print("Zdecydowałeś o b")
+        elif decyzja == "c":
+            print("Zdecydowałeś o c")
+        else:
+            print("Nie ma takiej opcji")
+    elif wybor == "4":
+        print("Wybrałeś 4 - Leci tura")
+        for i, v in enumerate(zwierzaki):
+            v.uplywCzasu()
+            print(f"Pod indeksem: {i}, imie: {v.imie} ,glod: {v.glod}, higiena: {v.higiena}, energia: {v.energia}, humor: {v.humor}")
+    elif wybor == "5":
+        print("Wybrałeś 5")
+        break
     else:
         print("Nie ma takiej opcji")
-
-
-
-
-
 
 
 
